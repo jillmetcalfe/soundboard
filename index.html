@@ -4,19 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workshop Soundboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --bg: #FFF8E7;
+            --ink: #1A1A1A;
+            --dot: #E8D9B5;
+            --radius: 18px;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #0f0f1a;
-            color: white;
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px);
+            background-size: 22px 22px;
+            color: var(--ink);
             min-height: 100vh;
-            padding: 2rem;
+            padding: 2.5rem 2rem 3rem;
         }
 
         header {
@@ -24,23 +30,34 @@
             margin-bottom: 2.5rem;
         }
 
+        .title-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
         h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-bottom: 0.4rem;
-            letter-spacing: -0.5px;
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.2rem;
+            letter-spacing: 0.5px;
+            line-height: 1;
+            color: var(--ink);
         }
 
         .subtitle {
-            color: #888;
-            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 900;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #aaa;
         }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
             gap: 1rem;
-            max-width: 860px;
+            max-width: 880px;
             margin: 0 auto 2rem;
         }
 
@@ -49,110 +66,162 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 1.5rem 1rem;
-            border: none;
-            border-radius: 20px;
+            padding: 1.4rem 1rem 1.2rem;
+            background: white;
+            border: 3px solid var(--ink);
+            border-top-width: 6px;
+            border-radius: var(--radius);
             cursor: pointer;
-            transition: transform 0.12s ease, box-shadow 0.2s ease;
-            gap: 0.5rem;
-            position: relative;
-            min-height: 130px;
+            box-shadow: 4px 4px 0 var(--ink);
+            transition: transform 0.08s ease, box-shadow 0.08s ease, background 0.15s ease, color 0.15s ease;
+            gap: 0.45rem;
+            min-height: 135px;
+            color: var(--ink);
+
+            opacity: 0;
+            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        .sound-btn:not(.placeholder):hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-        }
+        .sound-btn:nth-child(1)  { animation-delay: 0.04s; }
+        .sound-btn:nth-child(2)  { animation-delay: 0.08s; }
+        .sound-btn:nth-child(3)  { animation-delay: 0.12s; }
+        .sound-btn:nth-child(4)  { animation-delay: 0.16s; }
+        .sound-btn:nth-child(5)  { animation-delay: 0.20s; }
+        .sound-btn:nth-child(6)  { animation-delay: 0.24s; }
+        .sound-btn:nth-child(7)  { animation-delay: 0.28s; }
+        .sound-btn:nth-child(8)  { animation-delay: 0.32s; }
+        .sound-btn:nth-child(9)  { animation-delay: 0.36s; }
+        .sound-btn:nth-child(10) { animation-delay: 0.40s; }
 
-        .sound-btn:not(.placeholder):active {
-            transform: scale(0.96);
-        }
-
-        .sound-btn.playing {
-            box-shadow: 0 0 0 4px white, 0 8px 24px rgba(0,0,0,0.4);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 0 0 4px white, 0 8px 24px rgba(0,0,0,0.4); }
-            50%       { box-shadow: 0 0 0 7px rgba(255,255,255,0.5), 0 8px 24px rgba(0,0,0,0.4); }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.8) translateY(12px); }
+            to   { opacity: 1; transform: scale(1) translateY(0); }
         }
 
         .sound-btn.placeholder {
-            opacity: 0.35;
+            border-style: dashed;
+            border-top-style: dashed;
             cursor: default;
         }
 
+        @keyframes popInDim {
+            from { opacity: 0; transform: scale(0.8) translateY(12px); }
+            to   { opacity: 0.38; transform: scale(1) translateY(0); }
+        }
+
+        .sound-btn.placeholder {
+            animation-name: popInDim;
+        }
+
+        .sound-btn:not(.placeholder):hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .sound-btn:not(.placeholder):active {
+            transform: translate(3px, 3px);
+            box-shadow: 1px 1px 0 var(--ink);
+        }
+
+        .sound-btn.playing {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .sound-btn.playing .emoji {
+            animation: bop 0.45s ease-in-out infinite alternate;
+        }
+
+        @keyframes bop {
+            from { transform: translateY(0) rotate(-5deg); }
+            to   { transform: translateY(-7px) rotate(5deg); }
+        }
+
         .emoji {
-            font-size: 2.8rem;
+            font-size: 2.6rem;
             line-height: 1;
+            display: block;
         }
 
         .label {
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 0.78rem;
+            font-weight: 900;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.25;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .coming-soon {
-            font-size: 0.65rem;
-            font-weight: 500;
+            font-size: 0.58rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.7;
-            background: rgba(0,0,0,0.2);
-            padding: 2px 7px;
-            border-radius: 20px;
+            letter-spacing: 0.1em;
+            background: var(--ink);
+            color: var(--bg);
+            padding: 2px 8px;
+            border-radius: 4px;
         }
 
         .stop-all-wrap {
             text-align: center;
+            margin-top: 0.5rem;
         }
 
         .stop-all {
-            padding: 0.75rem 2.5rem;
-            background: #2a2a3a;
-            color: #ccc;
-            border: 1px solid #444;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            padding: 0.7rem 2.2rem;
+            background: var(--ink);
+            color: var(--bg);
+            border: 3px solid var(--ink);
             border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
             cursor: pointer;
-            transition: background 0.15s, color 0.15s;
+            box-shadow: 3px 3px 0 #555;
+            transition: transform 0.08s ease, box-shadow 0.08s ease;
         }
 
         .stop-all:hover {
-            background: #3a3a4a;
-            color: white;
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 #555;
+        }
+
+        .stop-all:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #555;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🎵 Workshop Soundboard</h1>
+        <div class="title-wrap">
+            <h1>🎬 Soundboard</h1>
+        </div>
         <p class="subtitle">Click to play &nbsp;·&nbsp; Click again to stop</p>
     </header>
 
     <div class="grid" id="grid"></div>
 
     <div class="stop-all-wrap">
-        <button class="stop-all" onclick="stopAll()">⏹ Stop All Sounds</button>
+        <button class="stop-all" onclick="stopAll()">⏹ &nbsp;Stop All</button>
     </div>
 
     <script>
         const sounds = [
-            { emoji: '🛗', label: 'Elevator Music', file: 'elevator.mp3',     loop: true,  color: '#4ecdc4', ready: true },
-            { emoji: '👏', label: 'Applause',        file: 'applause.mp3',     loop: false, color: '#ff6b6b', ready: true },
-            { emoji: '😢', label: 'Sad Trombone',    file: 'sadtrombone.mp3',  loop: false, color: '#60a5fa', ready: false },
-            { emoji: '🎉', label: 'Ta-da!',           file: 'tada.mp3',         loop: false, color: '#ffd93d', ready: false },
-            { emoji: '⏰', label: 'Ticking Clock',   file: 'ticking.mp3',      loop: true,  color: '#c084fc', ready: false },
-            { emoji: '🥁', label: 'Drumroll',         file: 'drumroll.mp3',     loop: false, color: '#fb923c', ready: false },
-            { emoji: '😂', label: 'Laugh Track',      file: 'laugh.mp3',        loop: false, color: '#4ade80', ready: false },
-            { emoji: '🔔', label: 'Ding!',            file: 'ding.mp3',         loop: false, color: '#f9a8d4', ready: false },
-            { emoji: '📣', label: 'Countdown',        file: 'countdown.mp3',    loop: false, color: '#a3e635', ready: false },
-            { emoji: '🎷', label: 'Lounge Jazz',      file: 'lounge.mp3',       loop: true,  color: '#e879f9', ready: false },
+            { emoji: '🛗', label: 'Elevator Music', file: 'elevator.mp3',    loop: true,  color: '#FF6B35', ready: true  },
+            { emoji: '👏', label: 'Applause',        file: 'applause.mp3',    loop: false, color: '#FFD60A', ready: true  },
+            { emoji: '😢', label: 'Sad Trombone',    file: 'sadtrombone.mp3', loop: false, color: '#4CC9F0', ready: false },
+            { emoji: '🎉', label: 'Ta-da!',           file: 'tada.mp3',        loop: false, color: '#FF006E', ready: false },
+            { emoji: '⏰', label: 'Ticking Clock',   file: 'ticking.mp3',     loop: true,  color: '#7209B7', ready: false },
+            { emoji: '🥁', label: 'Drumroll',         file: 'drumroll.mp3',    loop: false, color: '#3A86FF', ready: false },
+            { emoji: '😂', label: 'Laugh Track',      file: 'laugh.mp3',       loop: false, color: '#06D6A0', ready: false },
+            { emoji: '🔔', label: 'Ding!',            file: 'ding.mp3',        loop: false, color: '#F72585', ready: false },
+            { emoji: '📣', label: 'Countdown',        file: 'countdown.mp3',   loop: false, color: '#FB5607', ready: false },
+            { emoji: '🎷', label: 'Lounge Jazz',      file: 'lounge.mp3',      loop: true,  color: '#8338EC', ready: false },
         ];
 
         const audioMap = {};
@@ -161,30 +230,37 @@
         sounds.forEach((sound, i) => {
             const btn = document.createElement('button');
             btn.className = 'sound-btn' + (sound.ready ? '' : ' placeholder');
-            btn.style.background = sound.color;
-            btn.style.color = isLight(sound.color) ? '#111' : '#fff';
+            btn.style.borderTopColor = sound.color;
 
             btn.innerHTML = `
                 <span class="emoji">${sound.emoji}</span>
                 <span class="label">${sound.label}</span>
-                ${!sound.ready ? '<span class="coming-soon">coming soon</span>' : ''}
+                ${!sound.ready ? '<span class="coming-soon">Soon</span>' : ''}
             `;
 
             if (sound.ready) {
                 const audio = new Audio('sounds/' + sound.file);
                 audio.loop = sound.loop;
-                audioMap[i] = { audio, btn };
+                audioMap[i] = { audio, btn, sound };
 
-                audio.addEventListener('ended', () => btn.classList.remove('playing'));
+                audio.addEventListener('ended', () => {
+                    btn.classList.remove('playing');
+                    btn.style.background = 'white';
+                    btn.style.color = 'var(--ink)';
+                });
 
                 btn.addEventListener('click', () => {
                     if (btn.classList.contains('playing')) {
                         audio.pause();
                         audio.currentTime = 0;
                         btn.classList.remove('playing');
+                        btn.style.background = 'white';
+                        btn.style.color = 'var(--ink)';
                     } else {
                         audio.play();
                         btn.classList.add('playing');
+                        btn.style.background = sound.color;
+                        btn.style.color = isLight(sound.color) ? '#1A1A1A' : '#fff';
                     }
                 });
             }
@@ -197,6 +273,8 @@
                 audio.pause();
                 audio.currentTime = 0;
                 btn.classList.remove('playing');
+                btn.style.background = 'white';
+                btn.style.color = 'var(--ink)';
             });
         }
 
