@@ -81,6 +81,14 @@ Open **Audio MIDI Setup** (find it via Spotlight: Cmd+Space, type "Audio MIDI Se
 
 Hold **Option + click the speaker icon** → switch back to **AirPods** or **MacBook Air Speakers**.
 
+### Still to confirm
+
+The BlackHole setup has not yet been tested in a real Google Meet session. Next time you're on a call, test:
+- Can other participants **hear the sounds live**?
+- Do the sounds appear on the **cloud recording** afterwards?
+
+These can differ — Meet processes live audio and recordings separately.
+
 ### Note on AirPods
 
 Soundboard Output is configured with AirPods + BlackHole 2ch. If you ever use different headphones, you'd need to open Audio MIDI Setup and swap them in.
